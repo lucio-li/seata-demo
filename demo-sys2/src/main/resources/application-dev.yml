@@ -1,9 +1,9 @@
 server:
-  port: 9000
+  port: 9001
 
 spring:
   application:
-    name: demo-sys1
+    name: demo-sys2
   cloud:
     zookeeper:
       connect-string: localhost:2181

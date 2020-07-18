@@ -38,7 +38,7 @@
     <modules>
 
         <module>demo-sys1</module>
-<!--        <module>demo-sys2</module>-->
+        <module>demo-sys2</module>
 
     </modules>
     <dependencyManagement>

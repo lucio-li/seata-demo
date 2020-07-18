@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Description
  * @Date Create in 17:58 2020/5/23
  */
-@FeignClient(name = "seata-sys2")
+@FeignClient(name = "demo-sys2")
 @RequestMapping("/sys2/user")
 public interface SysUserFeign {
 

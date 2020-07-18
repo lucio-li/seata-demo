@@ -85,4 +85,4 @@ logging:
         path: ${LOGGING_PATH:./logs}
 
 server-name:
-    sys: demo-sys1
+    report: hellotax-report

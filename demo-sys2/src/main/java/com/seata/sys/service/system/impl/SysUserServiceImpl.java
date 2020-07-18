@@ -4,7 +4,6 @@ package com.seata.sys.service.system.impl;
 import com.seata.sys.common.dto.ServiceResponse;
 import com.seata.sys.dao.system.SysUserDao;
 import com.seata.sys.entity.system.SysUser;
-import com.seata.sys.fe.sys2.SysUserFeign;
 import com.seata.sys.service.system.SysUserService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +22,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserDao sysUserDao;
 
-    @Autowired
-    private SysUserFeign sysUserFeign;
+
 
     /**
      * 保存用户信息
@@ -53,21 +51,18 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public ServiceResponse update(SysUser sysUser) {
 
+
         sysUserDao.updateUserById(sysUser);
         try {
             Thread.sleep(5*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        sysUser.setAccount("100");
-
-        sysUserFeign.update(sysUser);
-        boolean flag = true;
-        if (flag) {
-            log.error("事务回滚");
-            throw new RuntimeException("测试抛异常后，分布式事务回滚！");
-        }
-
+//        boolean flag = true;
+//        if (flag) {
+//            log.error("事务回滚");
+//            throw new RuntimeException("测试抛异常后，分布式事务回滚！");
+//        }
         return ServiceResponse.createSuccess();
 
     }

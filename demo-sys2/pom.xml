@@ -8,9 +8,9 @@
         <version>0.0.1</version>
     </parent>
     <groupId>com.seata</groupId>
-    <artifactId>demo-sys1</artifactId>
+    <artifactId>demo-sys2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo-sys1</name>
+    <name>demo-sys2</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>
     <properties>

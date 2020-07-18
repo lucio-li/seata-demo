@@ -1,11 +1,8 @@
 package com.seata.sys.config;
 
-import com.zaxxer.hikari.HikariDataSource;
+import com.alibaba.druid.pool.DruidDataSource;
+import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import io.seata.rm.datasource.DataSourceProxy;
-import io.seata.spring.annotation.GlobalTransactionScanner;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,38 +10,42 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
-
+/**
+ * seata的配置
+ */
 @Configuration
 public class SeataConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource druidDataSource() {
-        HikariDataSource hikariDataSource = new HikariDataSource();
-        hikariDataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC");
-        return hikariDataSource;
+        DruidDataSource druidDataSource = new DruidDataSource();
+        return druidDataSource;
     }
     @Primary
     @Bean("dataSource")
-    public DataSourceProxy dataSource(DataSource hikariDataSource) {
-        return new DataSourceProxy(hikariDataSource);
+    public DataSourceProxy dataSource(DataSource dataSource) {
+        return new DataSourceProxy(dataSource);
     }
 
+
+    /**
+     * seata和mybatis plus的配置
+     * @param dataSource
+     * @return
+     * @throws IOException
+     */
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSourceProxy dataSourceProxy) throws Exception {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSourceProxy);
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
+    @ConfigurationProperties(prefix = "mybatis")
+    public MybatisSqlSessionFactoryBean sqlSessionFactoryBean( DataSource dataSource) throws IOException {
+        // 这里用 MybatisSqlSessionFactoryBean 代替了 SqlSessionFactoryBean，否则 MyBatisPlus 不会生效
+        MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
+        mybatisSqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources("classpath*:/dao/*/*.xml"));
-        sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
-
-        return sqlSessionFactoryBean.getObject();
-    }
-
-    @Bean
-    public GlobalTransactionScanner globalTransactionScanner() {
-        return new GlobalTransactionScanner("demo-sys8", "tx_group");
+        mybatisSqlSessionFactoryBean.setDataSource(dataSource);
+        return mybatisSqlSessionFactoryBean;
     }
 
 }

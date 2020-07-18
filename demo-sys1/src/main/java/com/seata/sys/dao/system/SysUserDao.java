@@ -2,7 +2,6 @@ package com.seata.sys.dao.system;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.seata.sys.entity.system.SysUser;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * 描述：SysUserDao
@@ -10,5 +9,5 @@ import org.apache.ibatis.annotations.Param;
  *
  */
 public interface SysUserDao extends BaseMapper<SysUser> {
-    void updateUserById(@Param("param") SysUser sysUser);
+//    void updateUserById(@Param("param") SysUser sysUser);
 }

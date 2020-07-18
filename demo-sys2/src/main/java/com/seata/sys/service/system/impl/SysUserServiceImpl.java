@@ -23,7 +23,6 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserDao sysUserDao;
 
 
-
     /**
      * 保存用户信息
      *
@@ -52,9 +51,16 @@ public class SysUserServiceImpl implements SysUserService {
     public ServiceResponse update(SysUser sysUser) {
 
 
-        sysUserDao.updateUserById(sysUser);
+        sysUserDao.updateById(sysUser);
+
+        SysUser sysUserNew = new SysUser();
+        sysUserNew.setId("3");
+        sysUserNew.setName("王五");
+        sysUserNew.setMsg("新的用户");
+        sysUserDao.insert(sysUserNew);
         try {
-            Thread.sleep(5*1000);
+            // 方便数据库看数据，暂停5秒
+            Thread.sleep(5 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -86,7 +92,6 @@ public class SysUserServiceImpl implements SysUserService {
             return ServiceResponse.createByErrorMsgData("删除用户信息失败，异常", null);
         }
     }
-
 
 
     /**

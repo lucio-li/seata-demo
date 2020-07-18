@@ -3,21 +3,4 @@
 <mapper namespace="com.seata.sys.dao.system.SysUserDao">
 
 
-
-
-
-    <update id="updateUserById" >
-        UPDATE sys_user SET
-        code = #{param.code}, name = #{param.name}, account = #{param.account}
-        WHERE id = #{param.id}
-
-    </update>
-
-
-
-
-
-
-
-
 </mapper>

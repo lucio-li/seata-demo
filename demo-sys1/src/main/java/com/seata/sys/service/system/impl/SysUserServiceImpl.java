@@ -53,14 +53,15 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public ServiceResponse update(SysUser sysUser) {
 
-        sysUserDao.updateUserById(sysUser);
+        sysUserDao.updateById(sysUser);
         try {
-            Thread.sleep(5*1000);
+            // 方便观察数据，暂停五秒
+            Thread.sleep(5 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        sysUser.setAccount("100");
-
+        sysUser.setName("李四");
+        sysUser.setMsg("二阶段修改");
         sysUserFeign.update(sysUser);
         boolean flag = true;
         if (flag) {

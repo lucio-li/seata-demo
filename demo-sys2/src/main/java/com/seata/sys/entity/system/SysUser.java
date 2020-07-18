@@ -13,12 +13,10 @@ import lombok.Data;
 public class SysUser  {
     @ApiModelProperty(value = " id")
     private String id;
-    @ApiModelProperty(value = " 用户编号")
-    private String code;
     @ApiModelProperty(value = " 用户实名")
     private String name;
-    @ApiModelProperty(value = " 账号")
-    private String account;
+    @ApiModelProperty(value = "提示信息")
+    private String msg;
 
 
 }

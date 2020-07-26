@@ -55,20 +55,10 @@ public class SysUserServiceImpl implements SysUserService {
 
         SysUser sysUserNew = new SysUser();
         sysUserNew.setId("3");
-        sysUserNew.setName("王五");
+        sysUserNew.setName("钱六");
         sysUserNew.setMsg("新的用户");
         sysUserDao.insert(sysUserNew);
-        try {
-            // 方便数据库看数据，暂停5秒
-            Thread.sleep(5 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        boolean flag = true;
-//        if (flag) {
-//            log.error("事务回滚");
-//            throw new RuntimeException("测试抛异常后，分布式事务回滚！");
-//        }
+
         return ServiceResponse.createSuccess();
 
     }
